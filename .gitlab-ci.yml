@@ -1,0 +1,50 @@
+image: maven:3.9-eclipse-temurin-17
+
+# Cache Maven pour accélérer les builds suivants
+cache:
+  paths:
+    - .m2/repository
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+
+stages:
+  - build
+  - package
+  - quality
+
+# Compilation du projet
+build:
+  stage: build
+  script:
+    - mvn compile -B
+  artifacts:
+    paths:
+      - target/classes/
+
+# Packaging : crée le fat JAR dans target/MessageApp.jar
+package:
+  stage: package
+  script:
+    - mvn package -B -DskipTests
+  artifacts:
+    paths:
+      - target/MessageApp.jar
+    expire_in: 1 week
+
+# Analyse SonarQube
+# Nécessite de configurer dans GitLab : Settings > CI/CD > Variables
+#   SONAR_HOST_URL = http://localhost:9000 (ou URL publique)
+#   SONAR_TOKEN    = token généré depuis SonarQube
+sonar:
+  stage: quality
+  script:
+    - mvn sonar:sonar
+        -Dsonar.projectKey=MessageApp
+        -Dsonar.host.url=$SONAR_HOST_URL
+        -Dsonar.login=$SONAR_TOKEN
+  only:
+    - V2
+    - master
+    - main
+  allow_failure: true

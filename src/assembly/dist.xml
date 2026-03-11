@@ -1,0 +1,30 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0
+          http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <!-- Le fat JAR généré -->
+    <files>
+        <file>
+            <source>target/MessageApp.jar</source>
+            <destName>MessageApp.jar</destName>
+        </file>
+        <file>
+            <source>launch.bat</source>
+            <destName>launch.bat</destName>
+        </file>
+    </files>
+
+    <!-- Le dossier lib/ avec les DLLs JavaFX -->
+    <fileSets>
+        <fileSet>
+            <directory>lib</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>

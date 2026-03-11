@@ -1,0 +1,36 @@
+# Fichiers compilés
+/bin/
+/out/
+/target/
+
+# Fichiers de session / échange (données runtime)
+*.dat
+*.usr
+*.msg
+*.chn
+
+# Dossiers Eclipse/IDE
+.metadata/
+.settings/
+.classpath
+.project
+
+# Claude AI (usage local uniquement)
+.claude/
+
+# Fichiers temporaires
+*.class
+*.tmp
+*.log
+
+# PDFs (documents de cours)
+*.pdf
+
+# Notes locales et documentation
+modifcations.txt
+GUIDE_TP_IHM.md
+PRESENTATION.md
+PRESENTATION2.md
+
+# Généré par maven-shade-plugin
+dependency-reduced-pom.xml
